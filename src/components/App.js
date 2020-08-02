@@ -1,9 +1,12 @@
 import React from 'react';
+import Settings from './Settings';
+import Main from './Main';
 
 function App() {
     return (
         <div className="App">
-            <h1>POMODO</h1>
+            <Settings />
+            <Main />
         </div>
     );
 }
