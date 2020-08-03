@@ -1,12 +1,15 @@
 import React from 'react';
 import Settings from './Settings';
 import Main from './Main';
+import TimerContextProvider from '../context/TimerContext';
 
 function App() {
     return (
         <div className="App">
-            <Settings />
-            <Main />
+            <TimerContextProvider>
+                <Settings />
+                <Main />
+            </TimerContextProvider>
         </div>
     );
 }
