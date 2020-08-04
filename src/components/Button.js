@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import playIcon from '../img/play_icon.svg';
+import pauseIcon from '../img/pause_icon.svg';
 import { TimerContext } from '../context/TimerContext';
 
 const Button = () => {
-    const { startTimer } = useContext(TimerContext);
+    const { startTimer, currentlyRunning } = useContext(TimerContext);
 
     const handleClick = () => {
         startTimer();
@@ -11,7 +12,7 @@ const Button = () => {
 
     return (
         <button className="play-pause" onClick={handleClick}>
-            <img src={playIcon} alt="Play Icon" />
+            {currentlyRunning ? <img src={pauseIcon} alt="Pause Icon" /> : <img src={playIcon} alt="Play Icon" />}
         </button>
     );
 };

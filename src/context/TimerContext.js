@@ -3,15 +3,29 @@ import React, { createContext, useState } from 'react';
 export const TimerContext = createContext();
 
 const TimerContextProvider = ({ children }) => {
-    const [time, setTime] = useState(1500);
+    const [sessionTime, setSessionTime] = useState(10);
+    const [currentlyRunning, setCurrentlyRunning] = useState(false);
+    const [intervalId, setIntervalId] = useState(null);
 
     const startTimer = () => {
-        setInterval(() => {
-            setTime((prevTime) => prevTime - 1);
-        }, 1000);
+        setCurrentlyRunning(!currentlyRunning);
+
+        if (currentlyRunning) {
+            clearInterval(intervalId);
+            setIntervalId(null);
+        } else {
+            const countdown = setInterval(() => {
+                if (sessionTime >= 0) {
+                    setSessionTime((prevTime) => {
+                        return prevTime - 1;
+                    });
+                }
+            }, 1000);
+            setIntervalId(countdown);
+        }
     };
 
-    return <TimerContext.Provider value={{ time, startTimer }}>{children}</TimerContext.Provider>;
+    return <TimerContext.Provider value={{ sessionTime, startTimer, currentlyRunning }}>{children}</TimerContext.Provider>;
 };
 
 export default TimerContextProvider;

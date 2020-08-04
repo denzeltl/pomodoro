@@ -4,9 +4,9 @@ import momentDurationFormatSetup from 'moment-duration-format';
 import { TimerContext } from '../context/TimerContext';
 
 const Display = () => {
-    const { time } = useContext(TimerContext);
+    const { sessionTime } = useContext(TimerContext);
     momentDurationFormatSetup(moment);
-    const formattedTime = moment.duration(time, 's').format('h:m:ss');
+    const formattedTime = moment.duration(sessionTime, 's').format('h:m:ss');
 
     return (
         <div className="display">
