@@ -1,8 +1,10 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useRef } from 'react';
 
 export const TimerContext = createContext();
 
 const TimerContextProvider = ({ children }) => {
+    const audioCompleted = useRef(null);
+    const audioStart = useRef(null);
     const [focusLength, setFocusLength] = useState(5);
     const [breakLength, setBreakLength] = useState(3);
     const [sessionName, setSessionName] = useState('FOCUS');
@@ -14,9 +16,11 @@ const TimerContextProvider = ({ children }) => {
     useEffect(() => {
         if (finishedTimer) {
             if (sessionName === 'FOCUS') {
+                audioCompleted.current.play();
                 setSessionName('BREAK');
                 setSessionTime(breakLength);
             } else if (sessionName === 'BREAK') {
+                audioStart.current.play();
                 setSessionName('FOCUS');
                 setSessionTime(focusLength);
             }
@@ -44,7 +48,7 @@ const TimerContextProvider = ({ children }) => {
         }
     };
 
-    return <TimerContext.Provider value={{ sessionTime, startTimer, currentlyRunning, sessionName }}>{children}</TimerContext.Provider>;
+    return <TimerContext.Provider value={{ sessionTime, startTimer, currentlyRunning, sessionName, audioCompleted, audioStart }}>{children}</TimerContext.Provider>;
 };
 
 export default TimerContextProvider;
