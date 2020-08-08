@@ -1,17 +1,13 @@
-import React from 'react';
-import Settings from './Settings';
-import Main from './Main';
-import Sounds from './Sounds';
-import TimerContextProvider from '../context/TimerContext';
+import React, { useContext } from 'react';
+import Container from './Container';
+import { TimerContext } from '../context/TimerContext';
 
 function App() {
+    const { bgColor } = useContext(TimerContext);
+
     return (
-        <div className="App">
-            <TimerContextProvider>
-                <Settings />
-                <Main />
-                <Sounds />
-            </TimerContextProvider>
+        <div className="app" style={{ background: bgColor }}>
+            <Container />
         </div>
     );
 }
