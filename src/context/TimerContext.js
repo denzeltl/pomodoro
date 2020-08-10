@@ -29,7 +29,7 @@ const TimerContextProvider = ({ children }) => {
             }
         }
         setFinishedTimer(false);
-    }, [finishedTimer]);
+    }, [finishedTimer, sessionName, breakLength, focusLength]);
 
     useEffect(() => {
         if (sessionName === 'BREAK' && sessionTime <= 5) {
@@ -37,7 +37,7 @@ const TimerContextProvider = ({ children }) => {
             audioStart.current.play();
         }
         setReadyCountdown(false);
-    }, [readyCountdown]);
+    }, [readyCountdown, sessionName, sessionTime]);
 
     const startTimer = () => {
         setCurrentlyRunning(!currentlyRunning);
