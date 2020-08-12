@@ -71,16 +71,24 @@ a {
         left: 0;
         z-index: 100;
         background: rgba(0, 0, 0, 0.2);
-        transition: all 0.3s;
-        // visibility: hidden;
-        // opacity: 0;
+        transition: visibility 0.3s, opacity 0.3s;
+        visibility: hidden;
+        opacity: 0;
+        &.show {
+            visibility: visible;
+            opacity: 1;
+            .settings-container {
+                transform: translateY(-50%);
+                opacity: 1;
+            }
+        }
     }
     &-container {
+        transition: transform 0.3s, opacity 0.3s;
         position: fixed;
         top: 50%;
         left: 0;
         right: 0;
-        transform: translateY(-50%);
         width: auto;
         margin: 0 1.25rem;
         border: 2px solid #fff;
@@ -88,13 +96,15 @@ a {
         text-align: center;
         background: #ff6d5a;
         padding: 1.825rem 1.5rem;
+        transform: translateY(-30%);
+        opacity: 0;
         .close {
             position: absolute;
             top: 0.5rem;
             right: 0.6rem;
         }
         .slider {
-            margin-bottom: 1.125rem;
+            margin-bottom: 1rem;
             .slider-details {
                 position: relative;
                 h3 {
@@ -103,7 +113,7 @@ a {
                     line-height: 1.5rem;
                 }
                 p {
-                    font-size: 0.8rem;
+                    font-size: 0.9rem;
                     position: absolute;
                     right: 0;
                     top: 50%;
@@ -113,6 +123,7 @@ a {
             .css-yvszuv-Slider {
                 width: 100%;
                 height: 0.25rem;
+                cursor: pointer;
                 background-color: rgba(0, 0, 0, 0.15);
                 .css-3g5hux-Slider {
                     background-color: #fff;
@@ -129,11 +140,11 @@ a {
             h2 {
                 font-size: 1.125rem;
                 line-height: 1.5rem;
-                margin-bottom: 0.5rem;
+                margin-bottom: 0.8rem;
             }
             .toggle {
                 margin: 0 auto 0.5rem;
-                width: 8rem;
+                width: 7rem;
                 &-switch {
                     height: 0;
                     width: 0;
@@ -145,8 +156,8 @@ a {
                     cursor: pointer;
                 }
                 &-desc {
-                    font-size: 0.8rem;
-                    padding-left: 1rem;
+                    font-size: 0.9rem;
+                    padding-left: 0.5rem;
                 }
                 &-button {
                     position: relative;

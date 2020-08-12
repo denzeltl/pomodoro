@@ -6,15 +6,31 @@ import closeIcon from '../img/close_icon.svg';
 const Settings = () => {
     const [focusDuration, setFocusDuration] = useState(25);
     const [breakDuration, setBreakDuration] = useState(5);
+    const [show, setShow] = useState(false);
+
+    const showSettings = () => {
+        setShow(true);
+    };
+
+    const hideSettings = () => {
+        setShow(false);
+    };
 
     return (
         <>
-            <button className="settings">
+            <button className="settings" onClick={showSettings}>
                 <img src={settingsIcon} alt="Settings Icon" />
             </button>
-            <div className="settings-overlay">
+            <div
+                className={`settings-overlay ${show && 'show'}`}
+                onClick={(e) => {
+                    if (e.target.classList.contains('settings-overlay')) {
+                        hideSettings();
+                    }
+                }}
+            >
                 <div className="settings-container">
-                    <button className="close">
+                    <button className="close" onClick={hideSettings}>
                         <img src={closeIcon} alt="Close Icon" />
                     </button>
                     <div className="slider">
