@@ -34,21 +34,24 @@ const Settings = () => {
                     <div className="reminder">
                         <h2>Reminders</h2>
                         <div className="toggle">
-                            <input className="toggle-switch" id="hydrate-switch" type="checkbox" />
                             <label className="toggle-label" htmlFor="hydrate-switch">
-                                Hydrate
+                                <input className="toggle-switch" id="hydrate-switch" type="checkbox" />
+                                <span className="toggle-button" />
+                                <p className="toggle-desc">Hydrate</p>
                             </label>
                         </div>
                         <div className="toggle">
-                            <input className="toggle-switch" id="stretch-switch" type="checkbox" />
                             <label className="toggle-label" htmlFor="stretch-switch">
-                                Stretch
+                                <input className="toggle-switch" id="stretch-switch" type="checkbox" />
+                                <span className="toggle-button" />
+                                <p className="toggle-desc">Stretch</p>
                             </label>
                         </div>
                         <div className="toggle">
-                            <input className="toggle-switch" id="eyes-switch" type="checkbox" />
                             <label className="toggle-label" htmlFor="eyes-switch">
-                                Rest Eyes
+                                <input className="toggle-switch" id="eyes-switch" type="checkbox" />
+                                <span className="toggle-button" />
+                                <p className="toggle-desc">Rest Eyes</p>
                             </label>
                         </div>
                     </div>
