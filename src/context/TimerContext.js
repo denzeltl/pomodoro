@@ -6,7 +6,7 @@ const TimerContextProvider = ({ children }) => {
     const audioCompleted = useRef(null);
     const audioStart = useRef(null);
     const [bgColor, setBgColor] = useState('#FF6D5A');
-    const [focusLength, setFocusLength] = useState(10);
+    const [focusLength, setFocusLength] = useState(3600);
     const [breakLength, setBreakLength] = useState(10);
     const [sessionName, setSessionName] = useState('FOCUS');
     const [sessionTime, setSessionTime] = useState(focusLength);

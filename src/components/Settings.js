@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import Slider from 'react-input-slider';
 import settingsIcon from '../img/settings_icon.svg';
 import closeIcon from '../img/close_icon.svg';
+import moment from 'moment';
+import momentDurationFormatSetup from 'moment-duration-format';
 
 const Settings = () => {
-    const [focusDuration, setFocusDuration] = useState(25);
-    const [breakDuration, setBreakDuration] = useState(5);
+    const [focusDuration, setFocusDuration] = useState(1500);
+    const [breakDuration, setBreakDuration] = useState(300);
     const [show, setShow] = useState(false);
+    momentDurationFormatSetup(moment);
+    const formattedFocusTime = moment.duration(focusDuration, 's').format('h [hrs] m [mins]');
+    const formattedBreakTime = moment.duration(breakDuration, 's').format('m [mins]');
 
     const showSettings = () => {
         setShow(true);
@@ -36,16 +41,16 @@ const Settings = () => {
                     <div className="slider">
                         <div className="slider-details">
                             <h3>Focus</h3>
-                            <p>{focusDuration}</p>
+                            <p>{formattedFocusTime}</p>
                         </div>
-                        <Slider axis="x" xstep={5} xmin={10} xmax={120} x={focusDuration} onChange={({ x }) => setFocusDuration(x)} />
+                        <Slider axis="x" xstep={300} xmin={300} xmax={7200} x={focusDuration} onChange={({ x }) => setFocusDuration(x)} />
                     </div>
                     <div className="slider">
                         <div className="slider-details">
                             <h3>Break</h3>
-                            <p>{breakDuration}</p>
+                            <p>{formattedBreakTime}</p>
                         </div>
-                        <Slider axis="x" xstep={1} xmin={1} xmax={30} x={breakDuration} onChange={({ x }) => setBreakDuration(x)} />
+                        <Slider axis="x" xstep={60} xmin={60} xmax={1800} x={breakDuration} onChange={({ x }) => setBreakDuration(x)} />
                     </div>
                     <div className="reminder">
                         <h2>Reminders</h2>
