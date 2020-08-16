@@ -5,7 +5,6 @@ export const TimerContext = createContext();
 const TimerContextProvider = ({ children }) => {
     const audioCompleted = useRef(null);
     const audioStart = useRef(null);
-    const [bgColor, setBgColor] = useState('#FF6D5A');
     const [focusLength, setFocusLength] = useState(1500);
     const [breakLength, setBreakLength] = useState(300);
     const [sessionName, setSessionName] = useState('FOCUS');
@@ -19,11 +18,11 @@ const TimerContextProvider = ({ children }) => {
         if (finishedTimer) {
             if (sessionName === 'FOCUS') {
                 audioCompleted.current.play();
-                setBgColor('#F9AB2C');
+                document.documentElement.style.setProperty('--bgColor', '#F9AB2C');
                 setSessionName('BREAK');
                 setSessionTime(breakLength);
             } else if (sessionName === 'BREAK' || sessionName === 'READY') {
-                setBgColor('#FF6D5A');
+                document.documentElement.style.setProperty('--bgColor', '#FF6D5A');
                 setSessionName('FOCUS');
                 setSessionTime(focusLength);
             }
@@ -61,9 +60,7 @@ const TimerContextProvider = ({ children }) => {
     };
 
     return (
-        <TimerContext.Provider
-            value={{ sessionTime, startTimer, currentlyRunning, sessionName, audioCompleted, audioStart, bgColor, focusLength, breakLength, setFocusLength, setBreakLength, setSessionTime }}
-        >
+        <TimerContext.Provider value={{ sessionTime, startTimer, currentlyRunning, sessionName, audioCompleted, audioStart, focusLength, breakLength, setFocusLength, setBreakLength, setSessionTime }}>
             {children}
         </TimerContext.Provider>
     );

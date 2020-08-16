@@ -7,7 +7,7 @@ const Display = () => {
     const { sessionTime, sessionName } = useContext(TimerContext);
     momentDurationFormatSetup(moment);
     const formattedTime = moment.duration(sessionTime, 'seconds').format('h[h] mm[m] ss[s]');
-    const splittedFormattedTime = formattedTime.split('').map((letter) => (parseInt(letter) === 0 || parseInt(letter) || letter === ' ' ? letter : <span>{letter}</span>));
+    const splittedFormattedTime = formattedTime.split('').map((letter, i) => (parseInt(letter) === 0 || parseInt(letter) || letter === ' ' ? letter : <span key={i}>{letter}</span>));
 
     return (
         <div className="display">

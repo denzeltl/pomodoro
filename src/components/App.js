@@ -6,7 +6,7 @@ function App() {
     const { bgColor } = useContext(TimerContext);
 
     return (
-        <div className="app" style={{ background: bgColor }}>
+        <div className="app">
             <Container />
         </div>
     );
