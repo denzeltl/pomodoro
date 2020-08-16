@@ -10,8 +10,8 @@ const Settings = () => {
     const { focusLength, breakLength, setFocusLength, setBreakLength, setSessionTime } = useContext(TimerContext);
     const [show, setShow] = useState(false);
     momentDurationFormatSetup(moment);
-    const formattedFocusTime = moment.duration(focusLength, 's').format('h [hrs] m [mins]');
-    const formattedBreakTime = moment.duration(breakLength, 's').format('m [mins]');
+    const formattedFocusTime = moment.duration(focusLength, 'seconds').format('h [hrs] m [mins]');
+    const formattedBreakTime = moment.duration(breakLength, 'seconds').format('m [mins]');
 
     const showSettings = () => {
         setShow(true);

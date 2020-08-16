@@ -216,9 +216,12 @@ a {
             letter-spacing: 0.05rem;
         }
         .timer {
-            font-size: 3.625rem;
+            font-size: 3.25rem;
             margin-bottom: 0.825rem;
             letter-spacing: 0.125rem;
+            span {
+                font-size: 1.625rem;
+            }
         }
     }
 

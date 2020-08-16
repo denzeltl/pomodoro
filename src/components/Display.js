@@ -6,12 +6,13 @@ import { TimerContext } from '../context/TimerContext';
 const Display = () => {
     const { sessionTime, sessionName } = useContext(TimerContext);
     momentDurationFormatSetup(moment);
-    const formattedTime = moment.duration(sessionTime, 's').format('h[h] m[m] ss[s]');
+    const formattedTime = moment.duration(sessionTime, 'seconds').format('h[h] mm[m] ss[s]');
+    const splittedFormattedTime = formattedTime.split('').map((letter) => (parseInt(letter) === 0 || parseInt(letter) || letter === ' ' ? letter : <span>{letter}</span>));
 
     return (
         <div className="display">
             <p className="label">{sessionName}</p>
-            <p className="timer">{formattedTime}</p>
+            <p className="timer">{splittedFormattedTime}</p>
         </div>
     );
 };
