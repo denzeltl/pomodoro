@@ -7,7 +7,19 @@ import momentDurationFormatSetup from 'moment-duration-format';
 import { TimerContext } from '../context/TimerContext';
 
 const Settings = () => {
-    const { focusLength, breakLength, setFocusLength, setBreakLength, setSessionTime } = useContext(TimerContext);
+    const {
+        focusLength,
+        breakLength,
+        setFocusLength,
+        setBreakLength,
+        setSessionTime,
+        checkedHydrate,
+        setCheckedHydrate,
+        checkedStretch,
+        setCheckedStretch,
+        checkedRestEyes,
+        setCheckedRestEyes,
+    } = useContext(TimerContext);
     const [show, setShow] = useState(false);
     momentDurationFormatSetup(moment);
     const formattedFocusTime = moment.duration(focusLength, 'seconds').format('h [hrs] m [mins]');
@@ -65,22 +77,22 @@ const Settings = () => {
                     <div className="reminder">
                         <h2>Reminders</h2>
                         <div className="toggle">
-                            <label className="toggle-label" htmlFor="hydrate-switch">
-                                <input className="toggle-switch" id="hydrate-switch" type="checkbox" />
+                            <label className="toggle-label" htmlFor="hydrate">
+                                <input className="toggle-switch" id="hydrate" type="checkbox" defaultChecked={checkedHydrate} onChange={() => setCheckedHydrate(!checkedHydrate)} />
                                 <span className="toggle-button" />
                                 <p className="toggle-desc">Hydrate</p>
                             </label>
                         </div>
                         <div className="toggle">
-                            <label className="toggle-label" htmlFor="stretch-switch">
-                                <input className="toggle-switch" id="stretch-switch" type="checkbox" />
+                            <label className="toggle-label" htmlFor="stretch">
+                                <input className="toggle-switch" id="stretch" type="checkbox" defaultChecked={checkedStretch} onChange={() => setCheckedStretch(!checkedStretch)} />
                                 <span className="toggle-button" />
                                 <p className="toggle-desc">Stretch</p>
                             </label>
                         </div>
                         <div className="toggle">
-                            <label className="toggle-label" htmlFor="eyes-switch">
-                                <input className="toggle-switch" id="eyes-switch" type="checkbox" />
+                            <label className="toggle-label" htmlFor="restEyes">
+                                <input className="toggle-switch" id="restEyes" type="checkbox" defaultChecked={checkedRestEyes} onChange={() => setCheckedRestEyes(!checkedRestEyes)} />
                                 <span className="toggle-button" />
                                 <p className="toggle-desc">Rest Eyes</p>
                             </label>

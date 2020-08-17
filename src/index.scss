@@ -203,8 +203,13 @@ a {
                         transform: translate(10%, -50%);
                     }
                 }
-                .toggle-switch:checked + .toggle-button::after {
-                    transform: translate(90%, -50%);
+                .toggle-switch:checked {
+                    & + .toggle-button {
+                        background: rgba(255, 255, 255, 0.3);
+                        &::after {
+                            transform: translate(90%, -50%);
+                        }
+                    }
                 }
             }
         }

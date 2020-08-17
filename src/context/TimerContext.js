@@ -13,6 +13,9 @@ const TimerContextProvider = ({ children }) => {
     const [intervalId, setIntervalId] = useState(null);
     const [finishedTimer, setFinishedTimer] = useState(false);
     const [readyCountdown, setReadyCountdown] = useState(false);
+    const [checkedHydrate, setCheckedHydrate] = useState(true);
+    const [checkedStretch, setCheckedStretch] = useState(true);
+    const [checkedRestEyes, setCheckedRestEyes] = useState(true);
 
     useEffect(() => {
         if (finishedTimer) {
@@ -60,7 +63,27 @@ const TimerContextProvider = ({ children }) => {
     };
 
     return (
-        <TimerContext.Provider value={{ sessionTime, startTimer, currentlyRunning, sessionName, audioCompleted, audioStart, focusLength, breakLength, setFocusLength, setBreakLength, setSessionTime }}>
+        <TimerContext.Provider
+            value={{
+                sessionTime,
+                startTimer,
+                currentlyRunning,
+                sessionName,
+                audioCompleted,
+                audioStart,
+                focusLength,
+                breakLength,
+                setFocusLength,
+                setBreakLength,
+                setSessionTime,
+                checkedHydrate,
+                setCheckedHydrate,
+                checkedStretch,
+                setCheckedStretch,
+                checkedRestEyes,
+                setCheckedRestEyes,
+            }}
+        >
             {children}
         </TimerContext.Provider>
     );
