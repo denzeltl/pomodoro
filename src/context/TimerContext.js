@@ -16,6 +16,8 @@ const TimerContextProvider = ({ children }) => {
     const [checkedHydrate, setCheckedHydrate] = useState(true);
     const [checkedStretch, setCheckedStretch] = useState(true);
     const [checkedRestEyes, setCheckedRestEyes] = useState(true);
+    const [hydrateTime, setHydrateTime] = useState(10);
+    const [hydrateId, setHydrateId] = useState(null);
 
     useEffect(() => {
         if (finishedTimer) {
@@ -40,6 +42,28 @@ const TimerContextProvider = ({ children }) => {
         }
         setReadyCountdown(false);
     }, [readyCountdown, sessionName, sessionTime]);
+
+    useEffect(() => {
+        if (currentlyRunning && checkedHydrate) {
+            const countdown = setInterval(() => {
+                setHydrateTime((prevTime) => {
+                    const newPrevTime = prevTime - 1;
+                    console.log(newPrevTime);
+                    if (newPrevTime > 5) {
+                        return prevTime - 1;
+                    } else {
+                        console.log('DRINK');
+                        setHydrateTime(10);
+                    }
+                });
+            }, 1000);
+            setHydrateId(countdown);
+        } else {
+            console.log('cleanup');
+            clearInterval(hydrateId);
+            setHydrateId(null);
+        }
+    }, [currentlyRunning, checkedHydrate, checkedStretch, checkedRestEyes]);
 
     const startTimer = () => {
         setCurrentlyRunning(!currentlyRunning);
