@@ -19,11 +19,13 @@ const TimerContextProvider = ({ children }) => {
     const [checkedHydrate, setCheckedHydrate] = useState(true);
     const [checkedStretch, setCheckedStretch] = useState(true);
     const [checkedRestEyes, setCheckedRestEyes] = useState(true);
-    const [hydrateTime, setHydrateTime] = useState(10);
+    const [showFeaturesDisplay, setShowFeaturesDisplay] = useState(false);
+    const [hydrateTime, setHydrateTime] = useState(600);
     const [hydrateId, setHydrateId] = useState(null);
     const [featureSessionName, setFeatureSessionName] = useState('');
     const [featureSessionTime, setFeatureSessionTime] = useState(null);
 
+    // Change from Focus and Break
     useEffect(() => {
         if (finishedTimer) {
             if (sessionName === 'FOCUS') {
@@ -40,6 +42,7 @@ const TimerContextProvider = ({ children }) => {
         setFinishedTimer(false);
     }, [finishedTimer, sessionName, breakLength, focusLength]);
 
+    // Change from Break to Focus
     useEffect(() => {
         if (sessionName === 'BREAK' && sessionTime <= 5) {
             setSessionName('READY');
@@ -48,35 +51,40 @@ const TimerContextProvider = ({ children }) => {
         setReadyCountdown(false);
     }, [readyCountdown, sessionName, sessionTime]);
 
+    // Timer for Hydrate feature
     useEffect(() => {
         if (currentlyRunning && checkedHydrate) {
             const countdown = setInterval(() => {
                 setHydrateTime((prevTime) => {
                     const newPrevTime = prevTime - 1;
-                    console.log(newPrevTime);
-                    if (newPrevTime > 5) {
-                        return prevTime - 1;
-                    } else {
+                    if (newPrevTime < 6) {
                         document.documentElement.style.setProperty('--bgColor', '#1ABAD0');
                         setFeatureSessionName('DRINK');
                         setFeatureSessionTime(newPrevTime);
+                        setShowFeaturesDisplay(true);
                         audioHydrate.current.play();
-                        if (prevTime > 0) {
+                        if (prevTime > 1) {
                             return prevTime - 1;
                         } else {
-                            console.log('reset hydrate timer');
+                            document.documentElement.style.setProperty('--bgColor', '#FF6D5A');
+                            setFeatureSessionName('');
+                            setFeatureSessionTime(null);
+                            setShowFeaturesDisplay(false);
+                            setHydrateTime(600);
                         }
+                    } else {
+                        return prevTime - 1;
                     }
                 });
             }, 1000);
             setHydrateId(countdown);
         } else {
-            console.log('cleanup');
             clearInterval(hydrateId);
             setHydrateId(null);
         }
-    }, [currentlyRunning, checkedHydrate, checkedStretch, checkedRestEyes]);
+    }, [currentlyRunning, checkedHydrate, hydrateId]);
 
+    // Start timer
     const startTimer = () => {
         setCurrentlyRunning(!currentlyRunning);
 
@@ -123,6 +131,8 @@ const TimerContextProvider = ({ children }) => {
                 setCheckedRestEyes,
                 featureSessionName,
                 featureSessionTime,
+                showFeaturesDisplay,
+                hydrateTime,
             }}
         >
             {children}
