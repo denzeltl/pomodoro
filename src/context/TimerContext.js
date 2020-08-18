@@ -5,6 +5,9 @@ export const TimerContext = createContext();
 const TimerContextProvider = ({ children }) => {
     const audioCompleted = useRef(null);
     const audioStart = useRef(null);
+    const audioHydrate = useRef(null);
+    const audioStretch = useRef(null);
+    const audioRestEyes = useRef(null);
     const [focusLength, setFocusLength] = useState(1500);
     const [breakLength, setBreakLength] = useState(300);
     const [sessionName, setSessionName] = useState('FOCUS');
@@ -18,6 +21,8 @@ const TimerContextProvider = ({ children }) => {
     const [checkedRestEyes, setCheckedRestEyes] = useState(true);
     const [hydrateTime, setHydrateTime] = useState(10);
     const [hydrateId, setHydrateId] = useState(null);
+    const [featureSessionName, setFeatureSessionName] = useState('');
+    const [featureSessionTime, setFeatureSessionTime] = useState(null);
 
     useEffect(() => {
         if (finishedTimer) {
@@ -52,8 +57,15 @@ const TimerContextProvider = ({ children }) => {
                     if (newPrevTime > 5) {
                         return prevTime - 1;
                     } else {
-                        console.log('DRINK');
-                        setHydrateTime(10);
+                        document.documentElement.style.setProperty('--bgColor', '#1ABAD0');
+                        setFeatureSessionName('DRINK');
+                        setFeatureSessionTime(newPrevTime);
+                        audioHydrate.current.play();
+                        if (prevTime > 0) {
+                            return prevTime - 1;
+                        } else {
+                            console.log('reset hydrate timer');
+                        }
                     }
                 });
             }, 1000);
@@ -95,6 +107,9 @@ const TimerContextProvider = ({ children }) => {
                 sessionName,
                 audioCompleted,
                 audioStart,
+                audioHydrate,
+                audioStretch,
+                audioRestEyes,
                 focusLength,
                 breakLength,
                 setFocusLength,
@@ -106,6 +121,8 @@ const TimerContextProvider = ({ children }) => {
                 setCheckedStretch,
                 checkedRestEyes,
                 setCheckedRestEyes,
+                featureSessionName,
+                featureSessionTime,
             }}
         >
             {children}
