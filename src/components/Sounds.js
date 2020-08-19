@@ -29,4 +29,4 @@ const Sounds = () => {
     );
 };
 
-export default Sounds;
+export default React.memo(Sounds);

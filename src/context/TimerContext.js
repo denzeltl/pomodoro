@@ -20,8 +20,9 @@ const TimerContextProvider = ({ children }) => {
     const [checkedStretch, setCheckedStretch] = useState(true);
     const [checkedRestEyes, setCheckedRestEyes] = useState(true);
     const [showFeaturesDisplay, setShowFeaturesDisplay] = useState(false);
-    const [hydrateTime, setHydrateTime] = useState(600);
+    const [hydrateTime, setHydrateTime] = useState(10);
     const [hydrateId, setHydrateId] = useState(null);
+    const [hydrateTimeRunning, setHydrateTimeRunning] = useState(false);
     const [featureSessionName, setFeatureSessionName] = useState('');
     const [featureSessionTime, setFeatureSessionTime] = useState(null);
 
@@ -54,7 +55,8 @@ const TimerContextProvider = ({ children }) => {
     // Timer for Hydrate feature
     useEffect(() => {
         if (currentlyRunning && checkedHydrate) {
-            const countdown = setInterval(() => {
+            setHydrateTimeRunning(true);
+            const hydrateCountdown = setInterval(() => {
                 setHydrateTime((prevTime) => {
                     const newPrevTime = prevTime - 1;
                     if (newPrevTime < 6) {
@@ -70,19 +72,26 @@ const TimerContextProvider = ({ children }) => {
                             setFeatureSessionName('');
                             setFeatureSessionTime(null);
                             setShowFeaturesDisplay(false);
-                            setHydrateTime(600);
+                            setHydrateTime(10);
                         }
                     } else {
                         return prevTime - 1;
                     }
                 });
             }, 1000);
-            setHydrateId(countdown);
-        } else {
+            setHydrateId(hydrateCountdown);
+        } else if (!currentlyRunning && checkedHydrate) {
+            setHydrateTimeRunning(false);
+        }
+    }, [currentlyRunning, checkedHydrate]);
+
+    // Check if features timer is running
+    useEffect(() => {
+        if (!hydrateTimeRunning) {
             clearInterval(hydrateId);
             setHydrateId(null);
         }
-    }, [currentlyRunning, checkedHydrate, hydrateId]);
+    }, [hydrateTimeRunning, hydrateId]);
 
     // Start timer
     const startTimer = () => {

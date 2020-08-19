@@ -17,4 +17,4 @@ const FeaturesDisplay = () => {
     );
 };
 
-export default FeaturesDisplay;
+export default React.memo(FeaturesDisplay);
