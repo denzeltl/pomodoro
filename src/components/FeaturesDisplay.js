@@ -1,18 +1,38 @@
 import React, { useContext } from 'react';
-import moment from 'moment';
-import momentDurationFormatSetup from 'moment-duration-format';
 import { TimerContext } from '../context/TimerContext';
 
 const FeaturesDisplay = () => {
-    const { featureSessionTime, featureSessionName, showFeaturesDisplay } = useContext(TimerContext);
-    momentDurationFormatSetup(moment);
-    const formattedTime = moment.duration(featureSessionTime, 'seconds').format('h[h] mm[m] ss[s]');
-    const splittedFormattedTime = formattedTime.split('').map((letter, i) => (parseInt(letter) === 0 || parseInt(letter) || letter === ' ' ? letter : <span key={i}>{letter}</span>));
+    const { hydrateDisplayTime, hydrateDisplayName, showFeaturesDisplay, stretchDisplayName, stretchDisplayTime, restEyesDisplayName, restEyesDisplayTime } = useContext(TimerContext);
 
     return (
         <div className={`display features-display ${showFeaturesDisplay ? 'show' : ''}`}>
-            <p className="label">{featureSessionName}</p>
-            <p className="timer">{splittedFormattedTime}</p>
+            {hydrateDisplayName && (
+                <div className="features-display-item">
+                    <p className="label">{hydrateDisplayName}</p>
+                    <p className="timer">
+                        {hydrateDisplayTime}
+                        <span>s</span>
+                    </p>
+                </div>
+            )}
+            {stretchDisplayName && (
+                <div className="features-display-item">
+                    <p className="label">{stretchDisplayName}</p>
+                    <p className="timer">
+                        {stretchDisplayTime}
+                        <span>s</span>
+                    </p>
+                </div>
+            )}
+            {restEyesDisplayName && (
+                <div className="features-display-item">
+                    <p className="label">{restEyesDisplayName}</p>
+                    <p className="timer">
+                        {restEyesDisplayTime}
+                        <span>s</span>
+                    </p>
+                </div>
+            )}
         </div>
     );
 };

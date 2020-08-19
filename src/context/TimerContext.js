@@ -23,8 +23,18 @@ const TimerContextProvider = ({ children }) => {
     const [hydrateTime, setHydrateTime] = useState(10);
     const [hydrateId, setHydrateId] = useState(null);
     const [hydrateTimeRunning, setHydrateTimeRunning] = useState(false);
-    const [featureSessionName, setFeatureSessionName] = useState('');
-    const [featureSessionTime, setFeatureSessionTime] = useState(null);
+    const [hydrateDisplayName, setHydrateDisplayName] = useState('');
+    const [hydrateDisplayTime, setHydrateDisplayTime] = useState(null);
+    const [stretchTime, setStretchTime] = useState(15);
+    const [stretchId, setStretchId] = useState(null);
+    const [stretchTimeRunning, setStretchTimeRunning] = useState(false);
+    const [stretchDisplayName, setStretchDisplayName] = useState('');
+    const [stretchDisplayTime, setStretchDisplayTime] = useState(null);
+    const [restEyesTime, setRestEyesTime] = useState(20);
+    const [restEyesId, setRestEyesId] = useState(null);
+    const [restEyesTimeRunning, setRestEyesTimeRunning] = useState(false);
+    const [restEyesDisplayName, setRestEyesDisplayName] = useState('');
+    const [restEyesDisplayTime, setRestEyesDisplayTime] = useState(null);
 
     // Change from Focus and Break
     useEffect(() => {
@@ -56,21 +66,21 @@ const TimerContextProvider = ({ children }) => {
     useEffect(() => {
         if (currentlyRunning && checkedHydrate) {
             setHydrateTimeRunning(true);
-            const hydrateCountdown = setInterval(() => {
+            const countdown = setInterval(() => {
                 setHydrateTime((prevTime) => {
                     const newPrevTime = prevTime - 1;
                     if (newPrevTime < 6) {
                         document.documentElement.style.setProperty('--bgColor', '#1ABAD0');
-                        setFeatureSessionName('DRINK');
-                        setFeatureSessionTime(newPrevTime);
+                        setHydrateDisplayName('HYDRATE');
+                        setHydrateDisplayTime(newPrevTime);
                         setShowFeaturesDisplay(true);
                         audioHydrate.current.play();
                         if (prevTime > 1) {
                             return prevTime - 1;
                         } else {
                             document.documentElement.style.setProperty('--bgColor', '#FF6D5A');
-                            setFeatureSessionName('');
-                            setFeatureSessionTime(null);
+                            setHydrateDisplayName('');
+                            setHydrateDisplayTime(null);
                             setShowFeaturesDisplay(false);
                             setHydrateTime(10);
                         }
@@ -79,11 +89,77 @@ const TimerContextProvider = ({ children }) => {
                     }
                 });
             }, 1000);
-            setHydrateId(hydrateCountdown);
+            setHydrateId(countdown);
         } else if (!currentlyRunning && checkedHydrate) {
             setHydrateTimeRunning(false);
         }
     }, [currentlyRunning, checkedHydrate]);
+
+    // Timer for Stretch feature
+    useEffect(() => {
+        if (currentlyRunning && checkedStretch) {
+            setStretchTimeRunning(true);
+            const countdown = setInterval(() => {
+                setStretchTime((prevTime) => {
+                    const newPrevTime = prevTime - 1;
+                    if (newPrevTime < 11) {
+                        document.documentElement.style.setProperty('--bgColor', '#B84FCA');
+                        setStretchDisplayName('STRETCH');
+                        setStretchDisplayTime(newPrevTime);
+                        setShowFeaturesDisplay(true);
+                        audioStretch.current.play();
+                        if (prevTime > 1) {
+                            return prevTime - 1;
+                        } else {
+                            document.documentElement.style.setProperty('--bgColor', '#FF6D5A');
+                            setStretchDisplayName('');
+                            setStretchDisplayTime(null);
+                            setShowFeaturesDisplay(false);
+                            setStretchTime(15);
+                        }
+                    } else {
+                        return prevTime - 1;
+                    }
+                });
+            }, 1000);
+            setStretchId(countdown);
+        } else if (!currentlyRunning && checkedStretch) {
+            setStretchTimeRunning(false);
+        }
+    }, [currentlyRunning, checkedStretch]);
+
+    // Timer for Rest Eyes feature
+    useEffect(() => {
+        if (currentlyRunning && checkedRestEyes) {
+            setRestEyesTimeRunning(true);
+            const countdown = setInterval(() => {
+                setRestEyesTime((prevTime) => {
+                    const newPrevTime = prevTime - 1;
+                    if (newPrevTime < 11) {
+                        document.documentElement.style.setProperty('--bgColor', '#7CAB3D');
+                        setRestEyesDisplayName('Rest Eyes');
+                        setRestEyesDisplayTime(newPrevTime);
+                        setShowFeaturesDisplay(true);
+                        audioRestEyes.current.play();
+                        if (prevTime > 1) {
+                            return prevTime - 1;
+                        } else {
+                            document.documentElement.style.setProperty('--bgColor', '#FF6D5A');
+                            setShowFeaturesDisplay(false);
+                            setRestEyesDisplayName('');
+                            setRestEyesDisplayTime(null);
+                            setRestEyesTime(20);
+                        }
+                    } else {
+                        return prevTime - 1;
+                    }
+                });
+            }, 1000);
+            setRestEyesId(countdown);
+        } else if (!currentlyRunning && checkedRestEyes) {
+            setRestEyesTimeRunning(false);
+        }
+    }, [currentlyRunning, checkedRestEyes]);
 
     // Check if features timer is running
     useEffect(() => {
@@ -91,7 +167,15 @@ const TimerContextProvider = ({ children }) => {
             clearInterval(hydrateId);
             setHydrateId(null);
         }
-    }, [hydrateTimeRunning, hydrateId]);
+        if (!stretchTimeRunning) {
+            clearInterval(stretchId);
+            setStretchId(null);
+        }
+        if (!restEyesTimeRunning) {
+            clearInterval(restEyesId);
+            setRestEyesId(null);
+        }
+    }, [hydrateTimeRunning, hydrateId, stretchTimeRunning, stretchId, restEyesId, restEyesTimeRunning]);
 
     // Start timer
     const startTimer = () => {
@@ -138,10 +222,16 @@ const TimerContextProvider = ({ children }) => {
                 setCheckedStretch,
                 checkedRestEyes,
                 setCheckedRestEyes,
-                featureSessionName,
-                featureSessionTime,
+                hydrateDisplayName,
+                hydrateDisplayTime,
                 showFeaturesDisplay,
                 hydrateTime,
+                stretchTime,
+                stretchDisplayName,
+                stretchDisplayTime,
+                restEyesTime,
+                restEyesDisplayName,
+                restEyesDisplayTime,
             }}
         >
             {children}
