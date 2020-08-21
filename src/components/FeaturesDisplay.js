@@ -8,8 +8,8 @@ const FeaturesDisplay = () => {
         <div className={`display features-display ${showFeaturesDisplay ? 'show' : ''}`}>
             {hydrateDisplayName && (
                 <div className="features-display-item">
-                    <p className="label">{hydrateDisplayName}</p>
-                    <p className="timer">
+                    <p className="features-display-item-label">Hydrate</p>
+                    <p className="features-display-item-timer">
                         {hydrateDisplayTime}
                         <span>s</span>
                     </p>
@@ -17,8 +17,8 @@ const FeaturesDisplay = () => {
             )}
             {stretchDisplayName && (
                 <div className="features-display-item">
-                    <p className="label">{stretchDisplayName}</p>
-                    <p className="timer">
+                    <p className="features-display-item-label">Stretch</p>
+                    <p className="features-display-item-timer">
                         {stretchDisplayTime}
                         <span>s</span>
                     </p>
@@ -26,8 +26,8 @@ const FeaturesDisplay = () => {
             )}
             {restEyesDisplayName && (
                 <div className="features-display-item">
-                    <p className="label">{restEyesDisplayName}</p>
-                    <p className="timer">
+                    <p className="features-display-item-label">Rest Eyes</p>
+                    <p className="features-display-item-timer">
                         {restEyesDisplayTime}
                         <span>s</span>
                     </p>

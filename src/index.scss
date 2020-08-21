@@ -53,6 +53,7 @@ a {
 
 .container {
     width: 100%;
+    min-height: 11.3rem;
     border: 2px solid #fff;
     border-radius: 10px;
     padding: 1.225rem 0.825rem;
@@ -236,19 +237,44 @@ a {
     }
 
     .features-display {
-        position: absolute;
-        top: 1.25rem;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
+        position: fixed;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
         z-index: 5;
         background: var(--bgColor);
+        border: 2px solid #fff;
+        border-radius: 10px;
         transition: background 0.6s;
         visibility: hidden;
         opacity: 0;
+        width: auto;
+        min-height: 11.3rem;
+        margin: 0 1.25rem;
+        padding: 1.225rem 3.825rem;
         &.show {
             visibility: visible;
             opacity: 1;
+        }
+        &-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.3rem;
+            line-height: 1;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            &-label {
+                font-size: 0.9rem;
+            }
+            &-timer {
+                font-size: 1.625rem;
+                span {
+                    font-size: 1.125rem;
+                }
+            }
         }
     }
 

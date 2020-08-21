@@ -20,17 +20,17 @@ const TimerContextProvider = ({ children }) => {
     const [checkedStretch, setCheckedStretch] = useState(true);
     const [checkedRestEyes, setCheckedRestEyes] = useState(true);
     const [showFeaturesDisplay, setShowFeaturesDisplay] = useState(false);
-    const [hydrateTime, setHydrateTime] = useState(10);
+    const [hydrateTime, setHydrateTime] = useState(600);
     const [hydrateId, setHydrateId] = useState(null);
     const [hydrateTimeRunning, setHydrateTimeRunning] = useState(false);
     const [hydrateDisplayName, setHydrateDisplayName] = useState('');
     const [hydrateDisplayTime, setHydrateDisplayTime] = useState(null);
-    const [stretchTime, setStretchTime] = useState(15);
+    const [stretchTime, setStretchTime] = useState(900);
     const [stretchId, setStretchId] = useState(null);
     const [stretchTimeRunning, setStretchTimeRunning] = useState(false);
     const [stretchDisplayName, setStretchDisplayName] = useState('');
     const [stretchDisplayTime, setStretchDisplayTime] = useState(null);
-    const [restEyesTime, setRestEyesTime] = useState(20);
+    const [restEyesTime, setRestEyesTime] = useState(1200);
     const [restEyesId, setRestEyesId] = useState(null);
     const [restEyesTimeRunning, setRestEyesTimeRunning] = useState(false);
     const [restEyesDisplayName, setRestEyesDisplayName] = useState('');
@@ -82,7 +82,7 @@ const TimerContextProvider = ({ children }) => {
                             setHydrateDisplayName('');
                             setHydrateDisplayTime(null);
                             setShowFeaturesDisplay(false);
-                            setHydrateTime(10);
+                            setHydrateTime(600);
                         }
                     } else {
                         return prevTime - 1;
@@ -115,7 +115,7 @@ const TimerContextProvider = ({ children }) => {
                             setStretchDisplayName('');
                             setStretchDisplayTime(null);
                             setShowFeaturesDisplay(false);
-                            setStretchTime(15);
+                            setStretchTime(900);
                         }
                     } else {
                         return prevTime - 1;
@@ -135,9 +135,9 @@ const TimerContextProvider = ({ children }) => {
             const countdown = setInterval(() => {
                 setRestEyesTime((prevTime) => {
                     const newPrevTime = prevTime - 1;
-                    if (newPrevTime < 11) {
+                    if (newPrevTime < 21) {
                         document.documentElement.style.setProperty('--bgColor', '#7CAB3D');
-                        setRestEyesDisplayName('Rest Eyes');
+                        setRestEyesDisplayName('REST EYES');
                         setRestEyesDisplayTime(newPrevTime);
                         setShowFeaturesDisplay(true);
                         audioRestEyes.current.play();
@@ -148,7 +148,7 @@ const TimerContextProvider = ({ children }) => {
                             setShowFeaturesDisplay(false);
                             setRestEyesDisplayName('');
                             setRestEyesDisplayTime(null);
-                            setRestEyesTime(20);
+                            setRestEyesTime(1200);
                         }
                     } else {
                         return prevTime - 1;
