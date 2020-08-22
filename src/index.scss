@@ -61,6 +61,19 @@ a {
     position: relative;
 }
 
+.mute {
+    position: absolute;
+    top: 0.825rem;
+    left: 0.825rem;
+    z-index: 6;
+    img {
+        width: 1rem;
+        &.mute-true {
+            opacity: 0.5;
+        }
+    }
+}
+
 .settings {
     position: absolute;
     top: 0.825rem;

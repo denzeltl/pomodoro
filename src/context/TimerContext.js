@@ -8,6 +8,7 @@ const TimerContextProvider = ({ children }) => {
     const audioHydrate = useRef(null);
     const audioStretch = useRef(null);
     const audioRestEyes = useRef(null);
+    const [isMuted, setIsMuted] = useState(false);
     const [focusLength, setFocusLength] = useState(1500);
     const [breakLength, setBreakLength] = useState(300);
     const [sessionName, setSessionName] = useState('FOCUS');
@@ -20,7 +21,7 @@ const TimerContextProvider = ({ children }) => {
     const [checkedStretch, setCheckedStretch] = useState(true);
     const [checkedRestEyes, setCheckedRestEyes] = useState(true);
     const [showFeaturesDisplay, setShowFeaturesDisplay] = useState(false);
-    const [hydrateTime, setHydrateTime] = useState(600);
+    const [hydrateTime, setHydrateTime] = useState(10);
     const [hydrateId, setHydrateId] = useState(null);
     const [hydrateTimeRunning, setHydrateTimeRunning] = useState(false);
     const [hydrateDisplayName, setHydrateDisplayName] = useState('');
@@ -35,6 +36,23 @@ const TimerContextProvider = ({ children }) => {
     const [restEyesTimeRunning, setRestEyesTimeRunning] = useState(false);
     const [restEyesDisplayName, setRestEyesDisplayName] = useState('');
     const [restEyesDisplayTime, setRestEyesDisplayTime] = useState(null);
+
+    // Mute sounds
+    useEffect(() => {
+        if (isMuted) {
+            audioCompleted.current.muted = true;
+            audioStart.current.muted = true;
+            audioHydrate.current.muted = true;
+            audioStretch.current.muted = true;
+            audioRestEyes.current.muted = true;
+        } else if (!isMuted) {
+            audioCompleted.current.muted = false;
+            audioStart.current.muted = false;
+            audioHydrate.current.muted = false;
+            audioStretch.current.muted = false;
+            audioRestEyes.current.muted = false;
+        }
+    }, [isMuted]);
 
     // Change from Focus and Break
     useEffect(() => {
@@ -82,7 +100,7 @@ const TimerContextProvider = ({ children }) => {
                             setHydrateDisplayName('');
                             setHydrateDisplayTime(null);
                             setShowFeaturesDisplay(false);
-                            setHydrateTime(600);
+                            setHydrateTime(10);
                         }
                     } else {
                         return prevTime - 1;
@@ -199,6 +217,11 @@ const TimerContextProvider = ({ children }) => {
         }
     };
 
+    // Handle mute button click
+    const muteButtonClick = () => {
+        setIsMuted(!isMuted);
+    };
+
     return (
         <TimerContext.Provider
             value={{
@@ -232,6 +255,8 @@ const TimerContextProvider = ({ children }) => {
                 restEyesTime,
                 restEyesDisplayName,
                 restEyesDisplayTime,
+                muteButtonClick,
+                isMuted,
             }}
         >
             {children}
