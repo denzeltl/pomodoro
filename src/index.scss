@@ -66,6 +66,13 @@ a {
     top: 0.825rem;
     left: 0.825rem;
     z-index: 6;
+    transition: transform 0.1s;
+    &:hover {
+        transform: scale(1.05);
+    }
+    &:active {
+        transform: scale(0.95);
+    }
     img {
         width: 1rem;
         &.mute-true {
@@ -79,6 +86,13 @@ a {
     top: 0.825rem;
     right: 0.825rem;
     z-index: 6;
+    transition: transform 0.1s;
+    &:hover {
+        transform: scale(1.05);
+    }
+    &:active {
+        transform: scale(0.95);
+    }
     img {
         width: 1rem;
     }
@@ -121,6 +135,13 @@ a {
             position: absolute;
             top: 0.5rem;
             right: 0.6rem;
+            transition: transform 0.1s;
+            &:hover {
+                transform: scale(1.05);
+            }
+            &:active {
+                transform: scale(0.95);
+            }
         }
         .slider {
             margin-bottom: 1rem;
@@ -293,9 +314,9 @@ a {
 
     .play-pause {
         border-radius: 50%;
-        transition: transform 0.1s;
         position: relative;
         z-index: 6;
+        transition: transform 0.1s;
         &:hover {
             transform: scale(1.05);
         }
