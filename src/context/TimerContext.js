@@ -8,7 +8,8 @@ const TimerContextProvider = ({ children }) => {
     const audioHydrate = useRef(null);
     const audioStretch = useRef(null);
     const audioRestEyes = useRef(null);
-    const [isMuted, setIsMuted] = useState(false);
+    const initialIsMuted = () => JSON.parse(window.localStorage.getItem('isMuted') || false);
+    const [isMuted, setIsMuted] = useState(initialIsMuted);
     const [focusLength, setFocusLength] = useState(1500);
     const [breakLength, setBreakLength] = useState(300);
     const [sessionName, setSessionName] = useState('FOCUS');
@@ -36,6 +37,15 @@ const TimerContextProvider = ({ children }) => {
     const [restEyesTimeRunning, setRestEyesTimeRunning] = useState(false);
     const [restEyesDisplayName, setRestEyesDisplayName] = useState('');
     const [restEyesDisplayTime, setRestEyesDisplayTime] = useState(null);
+
+    // Save to LocalStorage
+    useEffect(() => {
+        if (isMuted) {
+            window.localStorage.setItem('isMuted', true);
+        } else if (!isMuted) {
+            window.localStorage.setItem('isMuted', false);
+        }
+    }, [isMuted]);
 
     // Mute sounds
     useEffect(() => {
