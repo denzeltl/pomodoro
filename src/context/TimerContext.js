@@ -1,4 +1,6 @@
 import React, { createContext, useState, useEffect, useRef } from 'react';
+import moment from 'moment';
+import momentDurationFormatSetup from 'moment-duration-format';
 
 export const TimerContext = createContext();
 
@@ -10,9 +12,9 @@ const TimerContextProvider = ({ children }) => {
     const audioRestEyes = useRef(null);
     const initialIsMuted = () => JSON.parse(window.localStorage.getItem('isMuted') || false);
     const [isMuted, setIsMuted] = useState(initialIsMuted);
-    const initialFocusLength = () => JSON.parse(window.localStorage.getItem('focusLength') || 1500);
+    const initialFocusLength = () => JSON.parse(window.localStorage.getItem('focusLength') || 10);
     const [focusLength, setFocusLength] = useState(initialFocusLength);
-    const initialBreakLength = () => JSON.parse(window.localStorage.getItem('breakLength') || 300);
+    const initialBreakLength = () => JSON.parse(window.localStorage.getItem('breakLength') || 10);
     const [breakLength, setBreakLength] = useState(initialBreakLength);
     const [sessionName, setSessionName] = useState('FOCUS');
     const [sessionTime, setSessionTime] = useState(focusLength);
@@ -27,7 +29,7 @@ const TimerContextProvider = ({ children }) => {
     const initialCheckedRestEyes = () => JSON.parse(window.localStorage.getItem('checkedRestEyes') || true);
     const [checkedRestEyes, setCheckedRestEyes] = useState(initialCheckedRestEyes);
     const [showFeaturesDisplay, setShowFeaturesDisplay] = useState(false);
-    const [hydrateTime, setHydrateTime] = useState(10);
+    const [hydrateTime, setHydrateTime] = useState(600);
     const [hydrateId, setHydrateId] = useState(null);
     const [hydrateTimeRunning, setHydrateTimeRunning] = useState(false);
     const [hydrateDisplayName, setHydrateDisplayName] = useState('');
@@ -42,6 +44,19 @@ const TimerContextProvider = ({ children }) => {
     const [restEyesTimeRunning, setRestEyesTimeRunning] = useState(false);
     const [restEyesDisplayName, setRestEyesDisplayName] = useState('');
     const [restEyesDisplayTime, setRestEyesDisplayTime] = useState(null);
+
+    // Change window title
+    useEffect(() => {
+        momentDurationFormatSetup(moment);
+        const formattedTime = moment.duration(sessionTime, 'seconds').format('h[h] mm[m] ss[s]');
+        const capitalizedName = sessionName.charAt(0).toUpperCase() + sessionName.slice(1).toLowerCase();
+
+        if (currentlyRunning) {
+            document.title = `${capitalizedName} | ${formattedTime}`;
+        } else {
+            document.title = 'Pomodoro Timer';
+        }
+    }, [currentlyRunning, sessionTime, sessionName]);
 
     // Save to LocalStorage
     useEffect(() => {
@@ -133,7 +148,7 @@ const TimerContextProvider = ({ children }) => {
                             setHydrateDisplayName('');
                             setHydrateDisplayTime(null);
                             setShowFeaturesDisplay(false);
-                            setHydrateTime(10);
+                            setHydrateTime(600);
                         }
                     } else {
                         return prevTime - 1;
