@@ -29,17 +29,17 @@ const TimerContextProvider = ({ children }) => {
     const initialCheckedRestEyes = () => JSON.parse(window.localStorage.getItem('checkedRestEyes') || true);
     const [checkedRestEyes, setCheckedRestEyes] = useState(initialCheckedRestEyes);
     const [showFeaturesDisplay, setShowFeaturesDisplay] = useState(false);
-    const [hydrateTime, setHydrateTime] = useState(600);
+    const [hydrateTime, setHydrateTime] = useState(10);
     const [hydrateId, setHydrateId] = useState(null);
     const [hydrateTimeRunning, setHydrateTimeRunning] = useState(false);
     const [hydrateDisplayName, setHydrateDisplayName] = useState('');
     const [hydrateDisplayTime, setHydrateDisplayTime] = useState(null);
-    const [stretchTime, setStretchTime] = useState(900);
+    const [stretchTime, setStretchTime] = useState(10);
     const [stretchId, setStretchId] = useState(null);
     const [stretchTimeRunning, setStretchTimeRunning] = useState(false);
     const [stretchDisplayName, setStretchDisplayName] = useState('');
     const [stretchDisplayTime, setStretchDisplayTime] = useState(null);
-    const [restEyesTime, setRestEyesTime] = useState(1200);
+    const [restEyesTime, setRestEyesTime] = useState(10);
     const [restEyesId, setRestEyesId] = useState(null);
     const [restEyesTimeRunning, setRestEyesTimeRunning] = useState(false);
     const [restEyesDisplayName, setRestEyesDisplayName] = useState('');
@@ -148,7 +148,7 @@ const TimerContextProvider = ({ children }) => {
                             setHydrateDisplayName('');
                             setHydrateDisplayTime(null);
                             setShowFeaturesDisplay(false);
-                            setHydrateTime(600);
+                            setHydrateTime(10);
                         }
                     } else {
                         return prevTime - 1;
@@ -181,7 +181,7 @@ const TimerContextProvider = ({ children }) => {
                             setStretchDisplayName('');
                             setStretchDisplayTime(null);
                             setShowFeaturesDisplay(false);
-                            setStretchTime(900);
+                            setStretchTime(10);
                         }
                     } else {
                         return prevTime - 1;
@@ -214,7 +214,7 @@ const TimerContextProvider = ({ children }) => {
                             setShowFeaturesDisplay(false);
                             setRestEyesDisplayName('');
                             setRestEyesDisplayTime(null);
-                            setRestEyesTime(1200);
+                            setRestEyesTime(10);
                         }
                     } else {
                         return prevTime - 1;

@@ -271,21 +271,22 @@ a {
     }
 
     .features-display {
-        position: fixed;
-        top: 50%;
-        left: 0;
-        right: 0;
-        transform: translateY(-50%);
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 100%;
+        max-width: 23rem;
+        height: 100%;
+        border: 0;
+        border-radius: 10px;
+        margin: 0;
         z-index: 5;
         background: var(--bgColor);
-        border: 2px solid #fff;
-        border-radius: 10px;
         transition: background 0.6s;
         visibility: hidden;
         opacity: 0;
-        width: auto;
-        min-height: 11.3rem;
-        margin: 0 1.25rem;
+        margin: 0;
         padding: 1.225rem 3.825rem;
         &.show {
             visibility: visible;
@@ -331,13 +332,162 @@ a {
 
 /* Media Queries */
 @media screen and (min-width: 480px) {
+    html {
+        font-size: 18px;
+    }
+
+    .app {
+        padding: 0 5.625rem;
+        justify-content: center;
+    }
+
+    .container {
+        min-width: 22.625rem;
+        min-height: 15.125rem;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mute {
+        top: 1rem;
+        left: 1rem;
+        img {
+            width: 1.2rem;
+        }
+    }
+
+    .settings {
+        top: 1rem;
+        right: 1rem;
+        img {
+            width: 1.2rem;
+        }
+        &-overlay {
+            &.show {
+                .settings-container {
+                    transform: translate(-50%, -50%);
+                }
+            }
+        }
+        &-container {
+            left: 50%;
+            min-width: 22.625rem;
+            margin: 0;
+            padding: 2.625rem 2.625rem;
+            transform: translate(-50%, -30%);
+            .close {
+                top: 1rem;
+                right: 1rem;
+                img {
+                    width: 0.7rem;
+                }
+            }
+            .slider {
+                margin-bottom: 1.625rem;
+                .slider-details {
+                    h3 {
+                        line-height: 1.75rem;
+                    }
+                }
+            }
+            .reminder {
+                .toggle {
+                    &-desc {
+                        padding-left: 0.8rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .main {
+        .display {
+            .label {
+                font-size: 1.125rem;
+                margin-bottom: 0.8rem;
+            }
+            .timer {
+                font-size: 3.825rem;
+                margin-bottom: 1.225rem;
+                span {
+                    font-size: 2.125rem;
+                }
+            }
+        }
+
+        .features-display {
+            max-width: 26rem;
+            padding: 1.825rem 4.625rem;
+            &-item {
+                margin-bottom: 0.6rem;
+                &-label {
+                    font-size: 1rem;
+                }
+                &-timer {
+                    font-size: 1.825rem;
+                    span {
+                        font-size: 1.225rem;
+                    }
+                }
+            }
+        }
+
+        .play-pause {
+            img {
+                width: 2.825rem;
+            }
+        }
+    }
 }
 
 @media screen and (min-width: 768px) {
+    html {
+        font-size: 20px;
+    }
+
+    .app {
+        padding: 0 8.125rem;
+    }
+
+    .container {
+        min-width: 26.125rem;
+        min-height: 15.125rem;
+    }
+
+    .settings {
+        &-container {
+            min-width: 26.125rem;
+            padding: 2.625rem 3.125rem;
+            .close {
+                img {
+                    width: 0.8rem;
+                }
+            }
+        }
+    }
+
+    .main {
+        .features-display {
+            max-width: 24.125rem;
+            padding: 1.825rem 3.125rem;
+        }
+    }
 }
 
 @media screen and (min-width: 992px) {
-}
+    .app {
+        padding: 0;
+    }
 
-@media screen and (max-width: 1200px) {
+    .container {
+        max-width: 665px;
+    }
+
+    .settings {
+        &-container {
+            max-width: 522px;
+        }
+    }
 }
