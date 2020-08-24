@@ -10,17 +10,22 @@ const TimerContextProvider = ({ children }) => {
     const audioRestEyes = useRef(null);
     const initialIsMuted = () => JSON.parse(window.localStorage.getItem('isMuted') || false);
     const [isMuted, setIsMuted] = useState(initialIsMuted);
-    const [focusLength, setFocusLength] = useState(1500);
-    const [breakLength, setBreakLength] = useState(300);
+    const initialFocusLength = () => JSON.parse(window.localStorage.getItem('focusLength') || 1500);
+    const [focusLength, setFocusLength] = useState(initialFocusLength);
+    const initialBreakLength = () => JSON.parse(window.localStorage.getItem('breakLength') || 300);
+    const [breakLength, setBreakLength] = useState(initialBreakLength);
     const [sessionName, setSessionName] = useState('FOCUS');
     const [sessionTime, setSessionTime] = useState(focusLength);
     const [currentlyRunning, setCurrentlyRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
     const [finishedTimer, setFinishedTimer] = useState(false);
     const [readyCountdown, setReadyCountdown] = useState(false);
-    const [checkedHydrate, setCheckedHydrate] = useState(true);
-    const [checkedStretch, setCheckedStretch] = useState(true);
-    const [checkedRestEyes, setCheckedRestEyes] = useState(true);
+    const initialCheckedHydrate = () => JSON.parse(window.localStorage.getItem('checkedHydrate') || true);
+    const [checkedHydrate, setCheckedHydrate] = useState(initialCheckedHydrate);
+    const initialCheckedStretch = () => JSON.parse(window.localStorage.getItem('checkedStretch') || true);
+    const [checkedStretch, setCheckedStretch] = useState(initialCheckedStretch);
+    const initialCheckedRestEyes = () => JSON.parse(window.localStorage.getItem('checkedRestEyes') || true);
+    const [checkedRestEyes, setCheckedRestEyes] = useState(initialCheckedRestEyes);
     const [showFeaturesDisplay, setShowFeaturesDisplay] = useState(false);
     const [hydrateTime, setHydrateTime] = useState(10);
     const [hydrateId, setHydrateId] = useState(null);
@@ -45,7 +50,25 @@ const TimerContextProvider = ({ children }) => {
         } else if (!isMuted) {
             window.localStorage.setItem('isMuted', false);
         }
-    }, [isMuted]);
+
+        if (checkedHydrate) {
+            window.localStorage.setItem('checkedHydrate', true);
+        } else if (!checkedHydrate) {
+            window.localStorage.setItem('checkedHydrate', false);
+        }
+
+        if (checkedStretch) {
+            window.localStorage.setItem('checkedStretch', true);
+        } else if (!checkedStretch) {
+            window.localStorage.setItem('checkedStretch', false);
+        }
+
+        if (checkedRestEyes) {
+            window.localStorage.setItem('checkedRestEyes', true);
+        } else if (!checkedRestEyes) {
+            window.localStorage.setItem('checkedRestEyes', false);
+        }
+    }, [isMuted, checkedHydrate, checkedStretch, checkedRestEyes]);
 
     // Mute sounds
     useEffect(() => {

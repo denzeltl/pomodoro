@@ -62,6 +62,7 @@ const Settings = () => {
                             xmax={7200}
                             x={focusLength}
                             onChange={({ x }) => {
+                                window.localStorage.setItem('focusLength', x);
                                 setSessionTime(x);
                                 setFocusLength(x);
                             }}
@@ -72,7 +73,17 @@ const Settings = () => {
                             <h3>Break</h3>
                             <p>{formattedBreakTime}</p>
                         </div>
-                        <Slider axis="x" xstep={60} xmin={60} xmax={1800} x={breakLength} onChange={({ x }) => setBreakLength(x)} />
+                        <Slider
+                            axis="x"
+                            xstep={60}
+                            xmin={60}
+                            xmax={1800}
+                            x={breakLength}
+                            onChange={({ x }) => {
+                                window.localStorage.setItem('breakLength', x);
+                                setBreakLength(x);
+                            }}
+                        />
                     </div>
                     <div className="reminder">
                         <h2>Reminders</h2>
