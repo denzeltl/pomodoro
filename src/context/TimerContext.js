@@ -12,9 +12,9 @@ const TimerContextProvider = ({ children }) => {
     const audioRestEyes = useRef(null);
     const initialIsMuted = () => JSON.parse(window.localStorage.getItem('isMuted') || false);
     const [isMuted, setIsMuted] = useState(initialIsMuted);
-    const initialFocusLength = () => JSON.parse(window.localStorage.getItem('focusLength') || 10);
+    const initialFocusLength = () => JSON.parse(window.localStorage.getItem('focusLength') || 1500);
     const [focusLength, setFocusLength] = useState(initialFocusLength);
-    const initialBreakLength = () => JSON.parse(window.localStorage.getItem('breakLength') || 10);
+    const initialBreakLength = () => JSON.parse(window.localStorage.getItem('breakLength') || 300);
     const [breakLength, setBreakLength] = useState(initialBreakLength);
     const [sessionName, setSessionName] = useState('FOCUS');
     const [sessionTime, setSessionTime] = useState(focusLength);
@@ -29,21 +29,22 @@ const TimerContextProvider = ({ children }) => {
     const initialCheckedRestEyes = () => JSON.parse(window.localStorage.getItem('checkedRestEyes') || true);
     const [checkedRestEyes, setCheckedRestEyes] = useState(initialCheckedRestEyes);
     const [showFeaturesDisplay, setShowFeaturesDisplay] = useState(false);
-    const [hydrateTime, setHydrateTime] = useState(10);
+    const [hydrateTime, setHydrateTime] = useState(600);
     const [hydrateId, setHydrateId] = useState(null);
     const [hydrateTimeRunning, setHydrateTimeRunning] = useState(false);
     const [hydrateDisplayName, setHydrateDisplayName] = useState('');
     const [hydrateDisplayTime, setHydrateDisplayTime] = useState(null);
-    const [stretchTime, setStretchTime] = useState(10);
+    const [stretchTime, setStretchTime] = useState(900);
     const [stretchId, setStretchId] = useState(null);
     const [stretchTimeRunning, setStretchTimeRunning] = useState(false);
     const [stretchDisplayName, setStretchDisplayName] = useState('');
     const [stretchDisplayTime, setStretchDisplayTime] = useState(null);
-    const [restEyesTime, setRestEyesTime] = useState(10);
+    const [restEyesTime, setRestEyesTime] = useState(1200);
     const [restEyesId, setRestEyesId] = useState(null);
     const [restEyesTimeRunning, setRestEyesTimeRunning] = useState(false);
     const [restEyesDisplayName, setRestEyesDisplayName] = useState('');
     const [restEyesDisplayTime, setRestEyesDisplayTime] = useState(null);
+    const [backgroundColor, setBackgroundColor] = useState(false);
 
     // Change window title
     useEffect(() => {
@@ -128,6 +129,18 @@ const TimerContextProvider = ({ children }) => {
         setReadyCountdown(false);
     }, [readyCountdown, sessionName, sessionTime]);
 
+    // Set bg of current session
+    useEffect(() => {
+        if (backgroundColor) {
+            if (sessionName === 'FOCUS') {
+                document.documentElement.style.setProperty('--bgColor', '#FF6D5A');
+            } else {
+                document.documentElement.style.setProperty('--bgColor', '#F9AB2C');
+            }
+            setBackgroundColor(false);
+        }
+    }, [backgroundColor, sessionName]);
+
     // Timer for Hydrate feature
     useEffect(() => {
         if (currentlyRunning && checkedHydrate) {
@@ -144,11 +157,11 @@ const TimerContextProvider = ({ children }) => {
                         if (prevTime > 1) {
                             return prevTime - 1;
                         } else {
-                            document.documentElement.style.setProperty('--bgColor', '#FF6D5A');
+                            setBackgroundColor(true);
                             setHydrateDisplayName('');
                             setHydrateDisplayTime(null);
                             setShowFeaturesDisplay(false);
-                            setHydrateTime(10);
+                            setHydrateTime(600);
                         }
                     } else {
                         return prevTime - 1;
@@ -177,11 +190,11 @@ const TimerContextProvider = ({ children }) => {
                         if (prevTime > 1) {
                             return prevTime - 1;
                         } else {
-                            document.documentElement.style.setProperty('--bgColor', '#FF6D5A');
+                            setBackgroundColor(true);
                             setStretchDisplayName('');
                             setStretchDisplayTime(null);
                             setShowFeaturesDisplay(false);
-                            setStretchTime(10);
+                            setStretchTime(900);
                         }
                     } else {
                         return prevTime - 1;
@@ -210,11 +223,11 @@ const TimerContextProvider = ({ children }) => {
                         if (prevTime > 1) {
                             return prevTime - 1;
                         } else {
-                            document.documentElement.style.setProperty('--bgColor', '#FF6D5A');
+                            setBackgroundColor(true);
                             setShowFeaturesDisplay(false);
                             setRestEyesDisplayName('');
                             setRestEyesDisplayTime(null);
-                            setRestEyesTime(10);
+                            setRestEyesTime(1200);
                         }
                     } else {
                         return prevTime - 1;
